@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.MainActivity">
+
+    <android.support.v4.widget.DrawerLayout
+        android:id="@+id/drawer_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/tollbar_main_screen"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="#4665ce"
+                android:title="trang chinh"/>
+            <ViewFlipper
+                android:id="@+id/viewliper"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#5992d2"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="san pham moi nhat"
+                    android:textColor="#ff0000"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/recyclerview"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+                <TextView
+                    android:text="Lớp vỏ ngoài của nón AGV K-3 SV Balloon 2018 với công nghệ HIR-TH (High Resistance Thermoplastic Resin), vỏ bên trong EPS được tối ưu bằng công nghệ FEM (Finite Elements Analysis).\n
+Kính chắn gió trong suốt ngoài và kính râm chống nắng bên trong làm từ polycarbonate chống trầy xước, chống sương mù, chống 100% tia UV.\n
+Cơ chế gắn kính của nón AGV K-3 SV Balloon 2018 được thiết kế gắn vào tháo ra chỉ trong vài giây thao tác.\n
+Dây khóa Double ring an toàn hơn so với các khóa lẫy thông thường, giúp nón bạn không bị bung ra khi gặp sự cố nguy hiểm.\n
+Hệ thống thông gió của nón AGV K-3 SV Balloon 2018 được tối ưu hóa với các rãnh dẫn khí được thiết kế bên trong nón (3 lỗ phía trước, 1 lỗ ở cằm) và 2 lỗ thoát khí phía sau.\n
+Mút lót xốp in 3D dày nhưng cực êm có thể tháo rời giặt được. Chống ồn rất tốt.\n
+Màu sắc của nón AGV K-3 SV Balloon 2018 siêu bắt mắt, nổi bật, cá tính  đẹp!\n
+Đạt các chuẩn cao nhất thế giới: ECE 2205, DOT, JIS, NBR, AS / NZS,"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <android.support.design.widget.NavigationView
+            android:id="@+id/navigationview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="start">
+
+            <ListView
+                android:id="@+id/listViewMenu"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+        </android.support.design.widget.NavigationView>
+    </android.support.v4.widget.DrawerLayout>
+
+</LinearLayout>
