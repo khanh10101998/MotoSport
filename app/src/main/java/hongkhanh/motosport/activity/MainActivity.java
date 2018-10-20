@@ -86,7 +86,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
         arrProductType = new ArrayList<>();
         slideShow = new ArrayList<>();
         getDataProductType();
-        getDataBanner();
+
     }
 
     private void initControl() {
@@ -132,11 +132,9 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
 
     private void ActionViewFlipper() {
 
-//        slideShow.add("https://znews-photo-td.zadn.vn/w1024/Uploaded/tmuitg/2018_03_21/5.jpg");
-//        slideShow.add("http://vtimes.com.au/up/images/09-17/2764158-nhung-mon-an-nhat-dinh-ph-0.jpg");
-//        slideShow.add("https://znews-photo-td.zadn.vn/w1024/Uploaded/tmuitg/2018_03_21/7.jpg");
-//        slideShow.add("https://znews-photo-td.zadn.vn/w1024/Uploaded/tmuitg/2018_03_21/9.jpg");
-        slideShow.add("https://wiki-travel.com.vn/uploads/post/NguyenBinhVTV-153518083503-Phovietnam.jpg");
+        slideShow.add("https://image.freepik.com/free-photo/a-black-motorcycle-helmet-on-dark-background_2221-275.jpg");
+        slideShow.add("http://wallpaperlepi.com/wp-content/uploads/2015/05/Helmet-Arrai-Motorcycle-Wallpaper.jpg");
+
         Log.d("HongKhanh","so luong slideshow: " +slideShow.size());
         for (int i = 0; i < slideShow.size(); i++) {
             ImageView imageView = new ImageView(getApplicationContext());
@@ -189,37 +187,6 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
 
     }
 
-    private void getDataBanner() {
-        Log.d("HongKhanh", "Get DaTa banner");
-        RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
-        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Server.urlBanner, new Response.Listener<JSONArray>() {
-            @Override
-            public void onResponse(JSONArray response) {
-                if (response != null) {
-                    for (int i = 0; i < response.length(); i++) {
-                            try {
-                                JSONObject jsonObject = response.getJSONObject(i);
-                                String image = jsonObject.getString("image");
-                                slideShow.add(image);
-                               Log.d("HongKhanh","image: "+image);
-
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                } else {
-                    Log.d("HongKhanh", "response is null");
-                }
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                CheckConnection.showToast_short(getApplicationContext(), error.toString());
-            }
-        });
-        requestQueue.add(jsonArrayRequest);
-
-    }
 
     private void CatchOnItemListView() {
         listViewMenu.setOnItemClickListener(new AdapterView.OnItemClickListener() {
