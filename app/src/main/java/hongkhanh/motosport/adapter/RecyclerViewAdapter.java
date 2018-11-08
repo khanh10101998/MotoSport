@@ -1,14 +1,14 @@
 package hongkhanh.motosport.adapter;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -31,9 +31,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        public TextView textView;
+        public TextView textView, tv_price;
         public ImageView imageView;
-        public RelativeLayout relativeLayout;
         DataModel item;
 
         public ViewHolder(View v) {
@@ -43,16 +42,20 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             v.setOnClickListener(this);
             textView = (TextView) v.findViewById(R.id.textView);
             imageView = (ImageView) v.findViewById(R.id.imageView);
-            relativeLayout = (RelativeLayout) v.findViewById(R.id.relativeLayout);
+            tv_price = v.findViewById(R.id.tv_price_main);
 
         }
 
         public void setData(DataModel item) {
             this.item = item;
+            textView.setText(item.name);
+//            imageView.setImageDrawable(item.drawable);
+            tv_price.setText(item.price);
 
-            textView.setText(item.text);
-            imageView.setImageResource(item.drawable);
-            relativeLayout.setBackgroundColor(Color.parseColor(item.color));
+            Picasso.with(mContext).load(item.drawable)
+                .placeholder(R.drawable.ic_place_holder)
+                .error(R.drawable.ic_error)
+                .into(imageView);
 
         }
 

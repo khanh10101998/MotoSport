@@ -7,14 +7,14 @@ package hongkhanh.motosport.model;
 public class DataModel {
 
 
-    public String text;
-    public int drawable;
-    public String color;
+    public String name;
+    public String price;
+    public String drawable;
 
-    public DataModel(String t, int d, String c )
+    public DataModel(String t, String d, String p)
     {
-        text=t;
+        price = p;
+        name=t;
         drawable=d;
-        color=c;
     }
 }

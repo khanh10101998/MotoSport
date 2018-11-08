@@ -1,13 +1,18 @@
 package hongkhanh.motosport.activity;
 
+import android.app.SearchManager;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -46,8 +51,9 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
     ListView listViewMenu;
     DrawerLayout drawerLayout;
     ArrayList<ProductType> arrProductType;
-    ArrayList<String> slideShow ;
+    ArrayList<String> slideShow;
     ProductTypeAdapter productTypeAdapter;
+    RecyclerViewAdapter adapter;
     int id = 0;
     String nameProductType = "";
     String imageProductType = "";
@@ -63,30 +69,18 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
         initControl();
         initDisplay();
         initEvent();
-// hung
-        recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
-        arrayList = new ArrayList<>();
-        arrayList.add(new DataModel("Item 1", R.drawable.common_full_open_on_phone, "#09A9FF"));
-        arrayList.add(new DataModel("Item 2", R.drawable.common_full_open_on_phone, "#3E51B1"));
-        arrayList.add(new DataModel("Item 3",R.drawable.common_full_open_on_phone, "#673BB7"));
-        arrayList.add(new DataModel("Item 4", R.drawable.common_full_open_on_phone, "#4BAA50"));
-        arrayList.add(new DataModel("Item 5", R.drawable.common_full_open_on_phone, "#F94336"));
-        arrayList.add(new DataModel("Item 6", R.drawable.common_full_open_on_phone, "#0A9B88"));
 
-        RecyclerViewAdapter adapter = new RecyclerViewAdapter(this, arrayList, this);
-        recyclerView.setAdapter(adapter);
-        GridLayoutManager manager = new GridLayoutManager(this, 2, GridLayoutManager.VERTICAL, false);
-        recyclerView.setLayoutManager(manager);
-
-//----------------------------------------------------
 
     }
 
     private void initData() {
+
         arrProductType = new ArrayList<>();
         slideShow = new ArrayList<>();
+        arrayList = new ArrayList<>();
+        getDataBanner();
         getDataProductType();
-
+        getDataNewProduct();
     }
 
     private void initControl() {
@@ -97,6 +91,12 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
         drawerLayout = findViewById(R.id.drawer_layout);
         productTypeAdapter = new ProductTypeAdapter(arrProductType, getApplicationContext());
         listViewMenu.setAdapter(productTypeAdapter);
+        recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
+        adapter = new RecyclerViewAdapter(this, arrayList, this);
+        GridLayoutManager manager = new GridLayoutManager(this, 2, GridLayoutManager.VERTICAL, false);
+
+        recyclerView.setAdapter(adapter);
+        recyclerView.setLayoutManager(manager);
     }
 
     private void initDisplay() {
@@ -132,10 +132,10 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
 
     private void ActionViewFlipper() {
 
-        slideShow.add("https://image.freepik.com/free-photo/a-black-motorcycle-helmet-on-dark-background_2221-275.jpg");
-        slideShow.add("http://wallpaperlepi.com/wp-content/uploads/2015/05/Helmet-Arrai-Motorcycle-Wallpaper.jpg");
+//        slideShow.add("https://image.freepik.com/free-photo/a-black-motorcycle-helmet-on-dark-background_2221-275.jpg");
+//        slideShow.add("http://wallpaperlepi.com/wp-content/uploads/2015/05/Helmet-Arrai-Motorcycle-Wallpaper.jpg");
 
-        Log.d("HongKhanh","so luong slideshow: " +slideShow.size());
+        Log.d("HongKhanh", "so luong slideshow: " + slideShow.size());
         for (int i = 0; i < slideShow.size(); i++) {
             ImageView imageView = new ImageView(getApplicationContext());
             Picasso.with(getApplicationContext()).load(slideShow.get(i)).into(imageView);
@@ -187,6 +187,39 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
 
     }
 
+    private void getDataBanner() {
+        RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
+        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Server.urlBanner, new Response.Listener<JSONArray>() {
+            @Override
+            public void onResponse(JSONArray response) {
+                if (response != null) {
+
+                    for (int i = 0; i < response.length(); i++) {
+                        try {
+                            JSONObject jsonObject = response.getJSONObject(i);
+                            String image = jsonObject.getString("image");
+                            Log.d("HongKhanh","hinh banner: "+ image);
+                            slideShow.add(image);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                    ActionViewFlipper();
+
+                } else {
+                    Log.d("HongKhanh", "response is null");
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                CheckConnection.showToast_short(getApplicationContext(), error.toString());
+            }
+        });
+        requestQueue.add(jsonArrayRequest);
+
+    }
+
 
     private void CatchOnItemListView() {
         listViewMenu.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -210,8 +243,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
                             Toast.makeText(MainActivity.this, "click: " + arrProductType.get(position).nameType, Toast.LENGTH_SHORT).show();
                             break;
                     }
-                }
-                else {
+                } else {
                     CheckConnection.showToast_short(getApplicationContext(), "ban hay kiem tra lai ket noi");
                 }
             }
@@ -220,8 +252,78 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
 
     @Override
     public void onItemClick(DataModel item) {
-        Toast.makeText(getApplicationContext(), item.text + " is clicked", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getApplicationContext(), item.name+ " is clicked", Toast.LENGTH_SHORT).show();
 
 
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the options menu from XML
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.options_menu, menu);
+
+        // Get the SearchView and set the searchable configuration
+        SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+        SearchView searchView = (SearchView) menu.findItem(R.id.action_search).getActionView();
+        // Assumes current activity is the searchable activity
+        searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
+        searchView.setIconifiedByDefault(false); // Do not iconify the widget; expand it by default
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                Log.d("HongKhanh",query);
+                Toast.makeText(MainActivity.this, query, Toast.LENGTH_SHORT).show();
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                return false;
+            }
+        });
+
+        return true;
+    }
+
+
+    private void getDataNewProduct(){
+        RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
+        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Server.urlNewProducts, new Response.Listener<JSONArray>() {
+            @Override
+            public void onResponse(JSONArray response) {
+                if(response != null){
+                    int ID = 0;
+                    String name = "";
+                    String price = "";
+                    String image = "";
+                    int IDproduct =0;
+
+                    for (int i=0; i<response.length(); i++){
+                        try {
+                            JSONObject jsonObject = response.getJSONObject(i);
+                            ID = jsonObject.getInt("id");
+                            name = jsonObject.getString("name");
+                            price = jsonObject.getString("price");
+                            image = jsonObject.getString("image");
+                            arrayList.add(new DataModel(name,image,price));
+                            adapter.notifyDataSetChanged();
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
+                    }
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        });
+        requestQueue.add(jsonArrayRequest);
+    }
+
+
 }
