@@ -1,42 +1,60 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_marginRight="40dp"
-    android:paddingTop="10dp"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
 
-    android:gravity="center"
-    android:orientation="horizontal"
-    android:weightSum="10">
 
     <LinearLayout
-        android:gravity="center"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1">
+        android:background="#848484">
 
         <ImageView
-            android:id="@+id/iv_product_type"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_margin="5dp"
-            android:src="@mipmap/ic_launcher" />
-    </LinearLayout>
+            android:id="@+id/iv_product"
+            android:scaleType="centerCrop"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:src="@drawable/agv_k5" />
 
-    <!--</LinearLayout>-->
         <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="9">
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:weightSum="10">
 
-            <TextView
-                android:id="@+id/tv_product_type"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="5dp"
+            <LinearLayout
+                android:gravity="center_vertical"
+                android:paddingLeft="10dp"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:layout_weight="9"
+                android:background="#ff7373">
 
-                android:text="Product Type"
-                android:textColor="#ffffff"
-                android:textSize="20sp" />
+                <TextView
+                    android:text="agv"
+                    android:textSize="18sp"
+                    android:id="@+id/tv_product_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:text="200.000d"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:id="@+id/tv_product_price"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="#fff"
+                android:src="@drawable/add_card"
+                android:text="add to card"
+                android:textColor="#ffffff" />
+        </LinearLayout>
     </LinearLayout>
 </LinearLayout>

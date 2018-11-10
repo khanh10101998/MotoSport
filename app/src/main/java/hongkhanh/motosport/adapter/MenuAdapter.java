@@ -13,13 +13,13 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 
 import hongkhanh.motosport.R;
-import hongkhanh.motosport.model.ProductType;
+import hongkhanh.motosport.model.Menu;
 
-public class ProductTypeAdapter extends BaseAdapter {
-    ArrayList<ProductType> arrayListProductType ;
+public class MenuAdapter extends BaseAdapter {
+    ArrayList<Menu> arrayListProductType ;
     Context context;
 
-    public ProductTypeAdapter(ArrayList<ProductType> arrayListProductType, Context context) {
+    public MenuAdapter(ArrayList<Menu> arrayListProductType, Context context) {
         this.arrayListProductType = arrayListProductType;
         this.context = context;
     }
@@ -50,14 +50,14 @@ public class ProductTypeAdapter extends BaseAdapter {
         if (viewHolder == null){
             viewHolder = new ViewHolder();
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(context.LAYOUT_INFLATER_SERVICE);
-            convertView = inflater.inflate(R.layout.item_listview_product,null);
+            convertView = inflater.inflate(R.layout.item_listview_menu,null);
             viewHolder.imgProductType = convertView.findViewById(R.id.iv_product_type);
             viewHolder.txtNameProductType = convertView.findViewById(R.id.tv_product_type);
             convertView.setTag(viewHolder);
         }else{
             viewHolder = (ViewHolder) convertView.getTag();
         }
-        ProductType productType = (ProductType) getItem(position);
+        Menu productType = (Menu) getItem(position);
         viewHolder.txtNameProductType.setText(productType.getNameType());
             Picasso.with(context).load(productType.getImageType())
                     .placeholder(R.drawable.ic_place_holder)

@@ -1,11 +1,11 @@
 package hongkhanh.motosport.model;
 
-public class ProductType {
+public class Menu {
     public int id;
     public String nameType;
     public String imageType;
 
-    public ProductType(int id, String nameType, String imageType) {
+    public Menu(int id, String nameType, String imageType) {
         this.id = id;
         this.nameType = nameType;
         this.imageType = imageType;

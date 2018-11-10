@@ -16,9 +16,8 @@
         android:theme="@style/AppTheme">
         <activity android:name=".activity.MainActivity">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
                 <action android:name="android.intent.action.SEARCH" />
-
+                <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
 
@@ -26,10 +25,15 @@
                 android:name="android.app.searchable"
                 android:resource="@xml/searchable" />
         </activity>
-        <activity android:name=".activity.CreateProduct"></activity>
-        <activity android:name=".activity.Login"></activity>
-        <activity android:name=".activity.Register"></activity>
-        <activity android:name=".activity.Category"></activity>
+        <activity android:name=".activity.CreateProduct" />
+        <activity android:name=".activity.Login" />
+        <activity android:name=".activity.Register" />
+        <activity android:name=".activity.Category">
+        </activity>
+        <activity android:name=".activity.HelmetProduct" />
+        <activity android:name=".activity.JacketsActivity">
+
+        </activity>
     </application>
 
 </manifest>

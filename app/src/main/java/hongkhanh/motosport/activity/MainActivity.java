@@ -2,6 +2,7 @@ package hongkhanh.motosport.activity;
 
 import android.app.SearchManager;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -11,7 +12,6 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
 import android.view.animation.Animation;
@@ -36,10 +36,10 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 import hongkhanh.motosport.R;
-import hongkhanh.motosport.adapter.ProductTypeAdapter;
+import hongkhanh.motosport.adapter.MenuAdapter;
 import hongkhanh.motosport.adapter.RecyclerViewAdapter;
 import hongkhanh.motosport.model.DataModel;
-import hongkhanh.motosport.model.ProductType;
+import hongkhanh.motosport.model.Menu;
 import hongkhanh.motosport.ultil.CheckConnection;
 import hongkhanh.motosport.ultil.Server;
 
@@ -50,9 +50,9 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
     RecyclerView recyclerViewMain;
     ListView listViewMenu;
     DrawerLayout drawerLayout;
-    ArrayList<ProductType> arrProductType;
+    ArrayList<Menu> arrMenu;
     ArrayList<String> slideShow;
-    ProductTypeAdapter productTypeAdapter;
+    MenuAdapter productTypeAdapter;
     RecyclerViewAdapter adapter;
     int id = 0;
     String nameProductType = "";
@@ -75,11 +75,11 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
 
     private void initData() {
 
-        arrProductType = new ArrayList<>();
+        arrMenu = new ArrayList<>();
         slideShow = new ArrayList<>();
         arrayList = new ArrayList<>();
         getDataBanner();
-        getDataProductType();
+        getDataMenu();
         getDataNewProduct();
     }
 
@@ -89,7 +89,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
         recyclerViewMain = findViewById(R.id.recyclerView);
         listViewMenu = findViewById(R.id.listViewMenu);
         drawerLayout = findViewById(R.id.drawer_layout);
-        productTypeAdapter = new ProductTypeAdapter(arrProductType, getApplicationContext());
+        productTypeAdapter = new MenuAdapter(arrMenu, getApplicationContext());
         listViewMenu.setAdapter(productTypeAdapter);
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         adapter = new RecyclerViewAdapter(this, arrayList, this);
@@ -104,7 +104,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
             ActonBar();
             ActionViewFlipper();
 
-            //String a = arrProductType.get(2).nameType;
+            //String a = arrMenu.get(2).nameType;
             // Log.d("HongKhanh", a);
         } else {
             CheckConnection.showToast_short(getApplicationContext(), "No Internet");
@@ -150,7 +150,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
         viewFlipper.setOutAnimation(anim_slide_out);
     }
 
-    private void getDataProductType() {
+    private void getDataMenu() {
         Log.d("HongKhanh", "Get DaTa");
         RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Server.urlProductType, new Response.Listener<JSONArray>() {
@@ -164,15 +164,15 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
                             id = jsonObject.getInt("id");
                             nameProductType = jsonObject.getString("name");
                             imageProductType = jsonObject.getString("image");
-                            arrProductType.add(new ProductType(id, nameProductType, imageProductType));
+                            arrMenu.add(new Menu(id, nameProductType, imageProductType));
                             productTypeAdapter.notifyDataSetChanged();
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
                     }
-//                    arrProductType.add(2, new ProductType(0, "Contact", "https://cdn2.iconfinder.com/data/icons/picons-basic-1/57/basic1-039_address_book-512.png"));
-//                    arrProductType.add(3, new ProductType(0, "Infomation", "https://cdn1.iconfinder.com/data/icons/education-set-4/512/information-512.png"));
-//                    arrProductType.add(4, new ProductType(0, "mu bao hiem", "https://cdn3.iconfinder.com/data/icons/helmet/154/auto-race-car-moto-helmet-512.png"));
+//                    arrMenu.add(2, new Menu(0, "Contact", "https://cdn2.iconfinder.com/data/icons/picons-basic-1/57/basic1-039_address_book-512.png"));
+//                    arrMenu.add(3, new Menu(0, "Infomation", "https://cdn1.iconfinder.com/data/icons/education-set-4/512/information-512.png"));
+//                    arrMenu.add(4, new Menu(0, "mu bao hiem", "https://cdn3.iconfinder.com/data/icons/helmet/154/auto-race-car-moto-helmet-512.png"));
                 } else {
                     Log.d("HongKhanh", "response is null");
                 }
@@ -228,19 +228,22 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
                 if (CheckConnection.haveNetworkConnection(getApplicationContext())) {
                     switch (position) {
                         case 0:
-                            Toast.makeText(MainActivity.this, "click: " + arrProductType.get(position).nameType, Toast.LENGTH_SHORT).show();
+                            Toast.makeText(MainActivity.this, "click: " + arrMenu.get(position).nameType, Toast.LENGTH_SHORT).show();
                             break;
                         case 1:
-                            Toast.makeText(MainActivity.this, "click: " + arrProductType.get(position).nameType, Toast.LENGTH_SHORT).show();
+                            Toast.makeText(MainActivity.this, "click: " + arrMenu.get(position).nameType, Toast.LENGTH_SHORT).show();
                             break;
                         case 2:
-                            Toast.makeText(MainActivity.this, "click: " + arrProductType.get(position).nameType, Toast.LENGTH_SHORT).show();
+                            Toast.makeText(MainActivity.this, "click: " + arrMenu.get(position).nameType, Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(MainActivity.this,JacketsActivity.class);
+                            intent.putExtra("idCategory","jackets");
+                            startActivity(intent);
                             break;
                         case 3:
-                            Toast.makeText(MainActivity.this, "click: " + arrProductType.get(position).nameType, Toast.LENGTH_SHORT).show();
+                            Toast.makeText(MainActivity.this, "click: " + arrMenu.get(position).nameType, Toast.LENGTH_SHORT).show();
                             break;
                         case 4:
-                            Toast.makeText(MainActivity.this, "click: " + arrProductType.get(position).nameType, Toast.LENGTH_SHORT).show();
+                            Toast.makeText(MainActivity.this, "click: " + arrMenu.get(position).nameType, Toast.LENGTH_SHORT).show();
                             break;
                     }
                 } else {
@@ -258,7 +261,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
+    public boolean onCreateOptionsMenu(android.view.Menu menu) {
         // Inflate the options menu from XML
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.options_menu, menu);
