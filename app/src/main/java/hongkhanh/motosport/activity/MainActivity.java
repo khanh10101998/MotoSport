@@ -229,6 +229,9 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
                     switch (position) {
                         case 0:
                             Toast.makeText(MainActivity.this, "click: " + arrMenu.get(position).nameType, Toast.LENGTH_SHORT).show();
+                            Intent intent0 = new Intent(MainActivity.this,Category.class);
+                            intent0.putExtra("idCategory","jackets");
+                            startActivity(intent0);
                             break;
                         case 1:
                             Toast.makeText(MainActivity.this, "click: " + arrMenu.get(position).nameType, Toast.LENGTH_SHORT).show();

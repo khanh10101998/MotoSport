@@ -15,11 +15,12 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".activity.MainActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.SEARCH" />
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+            <!--<intent-filter>-->
+                <!--<action android:name="android.intent.action.SEARCH" />-->
+                <!--<action android:name="android.intent.action.MAIN" />-->
+
+                <!--<category android:name="android.intent.category.LAUNCHER" />-->
+            <!--</intent-filter>-->
 
             <meta-data
                 android:name="android.app.searchable"
@@ -28,10 +29,15 @@
         <activity android:name=".activity.CreateProduct" />
         <activity android:name=".activity.Login" />
         <activity android:name=".activity.Register" />
-        <activity android:name=".activity.Category">
-        </activity>
+        <activity android:name=".activity.Category"></activity>
         <activity android:name=".activity.HelmetProduct" />
-        <activity android:name=".activity.JacketsActivity">
+        <activity android:name=".activity.JacketsActivity"></activity>
+        <activity android:name=".activity.DetailActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
 
         </activity>
     </application>

@@ -3,6 +3,7 @@ package hongkhanh.motosport.ultil;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.util.Log;
 import android.widget.Toast;
 
 public class CheckConnection {
@@ -25,5 +26,6 @@ public class CheckConnection {
 
     public static void showToast_short(Context context, String text){
         Toast.makeText(context, text, Toast.LENGTH_SHORT).show();
+        Log.d("HongKhanh", text);
     }
 }
