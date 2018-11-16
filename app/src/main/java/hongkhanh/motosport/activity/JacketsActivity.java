@@ -1,5 +1,6 @@
 package hongkhanh.motosport.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -54,6 +55,7 @@ public class JacketsActivity extends AppCompatActivity {
     boolean limitData = false;
     mHanler mHanler;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -74,21 +76,7 @@ public class JacketsActivity extends AppCompatActivity {
     }
 
     private void LoadMoreData() {
-        listViewProduct.setOnScrollListener(new AbsListView.OnScrollListener() {
-            @Override
-            public void onScrollStateChanged(AbsListView view, int scrollState) {
 
-            }
-
-            @Override
-            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
-                if(firstVisibleItem + visibleItemCount == totalItemCount && totalItemCount != 0 && isLoading == false && limitData== false){
-                    isLoading = true ;
-                    ThreadData threadData = new ThreadData();
-                    threadData.start();
-                }
-            }
-        });
     }
 
     private void GetData(int page) {
@@ -102,7 +90,7 @@ public class JacketsActivity extends AppCompatActivity {
                 String price ="";
                 String image ="";
                 int count =0;
-                if(response != null && response.length()>0){
+                if(response != null && response.length()!= 2){
                     listViewProduct.removeFooterView(footerView);
                     try {
                         JSONArray jsonArray = new JSONArray(response);
@@ -179,6 +167,42 @@ public class JacketsActivity extends AppCompatActivity {
 
     private void initEvent() {
         CatchOnItemListView();
+        listViewProduct.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(JacketsActivity.this, DetailActivity.class);
+                intent.putExtra("infoProduct",Product.class);
+                int ID = productArrayList.get(position).getId();
+                String NAME = productArrayList.get(position).getName();
+                String PRICE = productArrayList.get(position).getPrice();
+                String IMAGE = productArrayList.get(position).getImage();
+
+                intent.putExtra("ID",ID);
+                intent.putExtra("NAME",NAME);
+                intent.putExtra("PRICE",PRICE);
+                intent.putExtra("IMAGE",IMAGE);
+
+
+                startActivity(intent);
+            }
+        });
+        listViewProduct.setOnScrollListener(new AbsListView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(AbsListView view, int scrollState) {
+
+            }
+
+            @Override
+            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+                if(firstVisibleItem + visibleItemCount == totalItemCount && totalItemCount != 0 && isLoading == false && limitData== false){
+                    isLoading = true ;
+                    ThreadData threadData = new ThreadData();
+                    threadData.start();
+                }
+            }
+        });
+
+
     }
 
     private void ActonBar() {

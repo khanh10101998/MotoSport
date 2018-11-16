@@ -40,6 +40,7 @@ import hongkhanh.motosport.adapter.MenuAdapter;
 import hongkhanh.motosport.adapter.RecyclerViewAdapter;
 import hongkhanh.motosport.model.DataModel;
 import hongkhanh.motosport.model.Menu;
+import hongkhanh.motosport.model.Product;
 import hongkhanh.motosport.ultil.CheckConnection;
 import hongkhanh.motosport.ultil.Server;
 
@@ -60,6 +61,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
     // hung
     RecyclerView recyclerView;
     ArrayList<DataModel> arrayList;
+    public static ArrayList<Product> arrayListCartMain;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -97,6 +99,11 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
 
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(manager);
+        if (arrayListCartMain != null ){
+
+        }else {
+            arrayListCartMain = new ArrayList<>();
+        }
     }
 
     private void initDisplay() {

@@ -19,7 +19,6 @@
             android:weightSum="1">
 
             <ImageView
-                android:id="@+id/iv_add_to_cart"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="#ff3131"
@@ -29,11 +28,11 @@
 
         <!-- view chinh -->
         <LinearLayout
-
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
-            android:background="#ffffff">
+            android:background="#ffffff"
+            android:orientation="horizontal">
 
             <ImageView
                 android:id="@+id/iv_product"
@@ -43,7 +42,7 @@
                 android:src="@drawable/agv_k5" />
 
             <LinearLayout
-                android:layout_width="match_parent"
+                android:layout_width="230dp"
                 android:layout_height="match_parent"
                 android:orientation="horizontal">
 
@@ -57,15 +56,36 @@
                     >
 
                     <TextView
-                        android:id="@+id/tv_product_name"
+                        android:id="@+id/tv_product_name_cart"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="agv"
                         android:textColor="#686868"
                         android:textSize="18sp" />
 
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="So Luong: "
+                            android:textColor="#686868"
+                            android:textSize="18sp" />
+
+                        <TextView
+                            android:id="@+id/tv_product_count_cart"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="2"
+                            android:textColor="#686868"
+                            android:textSize="18sp" />
+                    </LinearLayout>
+
                     <TextView
-                        android:id="@+id/tv_product_price"
+                        android:id="@+id/tv_product_price_cart"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="200.000d"
@@ -83,6 +103,26 @@
                 <!--android:background="#ff3131"-->
                 <!--android:text="add to card"-->
                 <!--android:textColor="#ffffff" />-->
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/iv_plus_cart"
+                    android:layout_width="20dp"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:src="@drawable/plus" />
+
+                <ImageView
+                    android:id="@+id/iv_minus_cart"
+                    android:layout_width="20dp"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:src="@drawable/minus" />
             </LinearLayout>
         </LinearLayout>
 

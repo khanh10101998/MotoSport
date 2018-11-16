@@ -1,6 +1,8 @@
 package hongkhanh.motosport.model;
 
-public class Product {
+import java.io.Serializable;
+
+public class Product implements Serializable {
     public int id;
     public String name;
     public String price;
@@ -63,4 +65,6 @@ public class Product {
         this.image = image;
         this.count = count;
     }
+
+
 }
